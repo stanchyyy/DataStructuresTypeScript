@@ -1,6 +1,6 @@
 import { Form } from "react-router-dom";
 
-export default function ListAllDataStructures() {
+export default function Contact() {
   const contact = {
     first: "Your",
     last: "Name",
@@ -14,8 +14,9 @@ export default function ListAllDataStructures() {
     <div id="contact">
       <div>
         <img
+          alt=""
           key={contact.avatar}
-          src={contact.avatar || null}
+          src={contact.avatar}
         />
       </div>
 
@@ -52,7 +53,11 @@ export default function ListAllDataStructures() {
             method="post"
             action="destroy"
             onSubmit={(event) => {
- {
+              if (
+                !window.confirm(
+                  "Please confirm you want to delete this record."
+                )
+              ) {
                 event.preventDefault();
               }
             }}
@@ -65,7 +70,7 @@ export default function ListAllDataStructures() {
   );
 }
 
-function Favorite({ contact }) {
+function Favorite({ contact }:any) {
   // yes, this is a `let` for later
   let favorite = contact.favorite;
   return (
