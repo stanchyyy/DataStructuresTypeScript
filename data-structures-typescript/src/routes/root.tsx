@@ -1,6 +1,5 @@
 import Drawer from "@mui/material/Drawer";
 import * as React from 'react';
-import Grid from "@mui/material/Grid/Grid";
 import { Link, Outlet } from "react-router-dom";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -15,48 +14,52 @@ import AppBar from "@mui/material/AppBar";
 import IconButton from '@mui/material/IconButton';
 import Typography from "@mui/material/Typography";
 import MenuIcon from '@mui/icons-material/Menu';
-import MailIcon from '@mui/icons-material/Mail';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 
 
-let dataStructures : string[] =["Array","Linked List","Stack","Queue","Binary Tree","Binary Search Tree", "Heap", "Hashing","Graph","Matrix"];
 
 
+let dataStructuresMap = new Map<string,string>();
+dataStructuresMap.set("Array","array");
+dataStructuresMap.set("Linked List","linkedList");
+dataStructuresMap.set("Stack","stack");
+dataStructuresMap.set("Queue","queue");
+dataStructuresMap.set("Binary Tree","binaryTree");
+dataStructuresMap.set("Binary Search Tree","binarySearchTree");
+dataStructuresMap.set("Heap","heap");
+dataStructuresMap.set("Hashing","hashing");
+dataStructuresMap.set("Graph","graph");
+dataStructuresMap.set("Matrix","matrix");
 
+function ListDataStructures(arg_dataStructuresMap :  Map<string,string>){
+  let listDataStructures: JSX.Element [] = [];
+  
+  for (const [key, value] of arg_dataStructuresMap) {
+    listDataStructures.push(
+      <ListItem  disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+                <Link   to={value} >
+                <ListItemText primary={key} />
+                </Link>
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+    )
+  }
+  return(
+    listDataStructures
+  )
+}
 
-// export default function Root() {
-//     return (
-
-
-
-//       <>
-//         <Drawer
-//   variant="temporary"
-//   ModalProps={{
-//     keepMounted: false,
-//   }}
-// />
-        
-//         <div id="detail">
-//         <Outlet />
-//         </div>
-//       </>
-//     );
-//   }
 
 
 const drawerWidth = 240;
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
 
-export default function ResponsiveDrawer(props: Props) {
-  const { window } = props;
+export default function Root() {
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -68,34 +71,12 @@ export default function ResponsiveDrawer(props: Props) {
       <Toolbar />
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {ListDataStructures(dataStructuresMap)}
       </List>
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -129,7 +110,7 @@ export default function ResponsiveDrawer(props: Props) {
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
+
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -159,33 +140,9 @@ export default function ResponsiveDrawer(props: Props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <div id="detail">
+         <Outlet />
+         </div>
       </Box>
     </Box>
   );
