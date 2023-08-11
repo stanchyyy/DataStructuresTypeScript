@@ -1,69 +1,124 @@
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
-import { Button } from "@mui/material";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { Button, Stack } from "@mui/material";
+import { FormEvent, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { IContent } from "../Models/Content";
 
 
-
-
-function UpdateArray(array : string[],index : number,value:string):string[]{
-    let result : string[] = [...array];
-    result[index] = value;
-  return(
+export function ArrayInsert(event: FormEvent<HTMLFormElement>,array:string[],index:number,value:string):string[]{
+  event.preventDefault();
+  let result : string[] = [...array];
+  result[index] = value;
+  return (
     result
   )
 }
 
-function CreateChipArrayElement(array:string[]):JSX.Element[]{
-  return(
-  array.map(element=>
-    <Chip label={element} variant="outlined" />
-  ))
+export function ArraySearch(array:string[],value:string):string[]{
+  let arrayToLower : string[] = array.map(element=>{
+    return element.toLocaleLowerCase();
+  })
+  let searchValueToLower : string = value.toLocaleLowerCase();
+  let searchResult = arrayToLower.filter((element)=>{return element.includes(searchValueToLower)});
+  let matchedIndexes:number[] = [];
+  let result:string[] = [];
+
+  if(searchValueToLower===""){
+    result = array;
+  }
+  if(searchResult.length===0){
+    result = ["No Results"];
+  }
+  if(searchResult.length>0 && searchValueToLower.length>0){
+    for(let i=0;i<arrayToLower.length;i++){
+      if(arrayToLower[i].includes(searchValueToLower)){
+        matchedIndexes.push(i);
+      }
+    }
+    for(let i=0;i<matchedIndexes.length;i++){
+      result.push(array[matchedIndexes[i]]);
+    }
+  }
+  return result;
 }
-
-function ArrayInsert(){
-  const [array,setArray] = useState(["Apple","Pear","Peach","Mango","Banana"]);
-  const [index, setIndex]  = useState<number>(-1);
-  const [value,setValue] = useState("");
-
-  const handleIndexChange = (event: ChangeEvent<HTMLTextAreaElement>):void=>{
-    let numericIndex:number = +event.target.value;
-    setIndex(numericIndex);
-  }
-  const handleValueChange = (event: ChangeEvent<HTMLTextAreaElement>):void=>{
-    setValue(event.target.value);
-  }
-
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>):void=>{
-    event.preventDefault();
-    let result : string[] = [...array];
-    result[index] = value;
-    setArray(result)
-  }
-
-return(
-  <>
-  <form onSubmit={handleSubmit}>
-      <TextField size="small" id="insert-Index" label="Index" name="index" variant="outlined" onChange={handleIndexChange}/>
-      <TextField size="small" id="Insert-Value" label="Value" name="value" variant="outlined" onChange={handleValueChange}/>
-      <Button size="medium" variant="outlined" type="submit">Insert</Button>
-      </form>
-            <Typography variant="h4" gutterBottom>
-            {CreateChipArrayElement(array)}
-          </Typography>
-    </>
-)
-
-
-}
-
 
 export default function Array() {
+  const [arrayInsert,setArrayInsert] = useState(["Apple","Pear","Peach","Mango","Banana"]);
+  const [index, setIndex]  = useState<number>(-1);
+  const [value,setValue] = useState("");
   const loadedData  = useLoaderData() as IContent;
+  const arraySearchOriginalValue = [
+    "Abarth",
+    "Alfa Romeo",
+    "Aston Martin",
+    "Audi",
+    "Audi RS",
+    "Bentley",
+    "BMW",
+    "Bugatti",
+    "Cadillac",
+    "Chevrolet",
+    "Chrysler",
+    "Citroën",
+    "Dacia",
+    "Daewoo",
+    "Daihatsu",
+    "Dodge",
+    "Donkervoort",
+    "DS",
+    "Ferrari",
+    "Fiat",
+    "Fisker",
+    "Ford",
+    "Honda",
+    "Hummer",
+    "Hyundai",
+    "Infiniti",
+    "Iveco",
+    "Jaguar",
+    "Jeep",
+    "Kia",
+    "KTM",
+    "Lada",
+    "Lamborghini",
+    "Lancia",
+    "Land Rover",
+    "Landwind",
+    "Lexus",
+    "Lotus",
+    "Maserati",
+    "Maybach",
+    "Mazda",
+    "McLaren",
+    "Mercedes-Benz",
+    "MG",
+    "Mini",
+    "Mitsubishi",
+    "Morgan",
+    "Nissan",
+    "Opel",
+    "Peugeot",
+    "Porsche",
+    "Renault",
+    "Rolls-Royce",
+    "Rover",
+    "Saab",
+    "Seat",
+    "Skoda",
+    "Smart",
+    "SsangYong",
+    "Subaru",
+    "Suzuki",
+    "Tesla",
+    "Toyota",
+    "Volkswagen",
+    "Volvo"
+  ];
+  const [arraySearch,setArraySearch] = useState(arraySearchOriginalValue);
+
+
   return (
     <div id="contact">
             <Typography variant="h3" gutterBottom>
@@ -78,17 +133,33 @@ export default function Array() {
       <Typography variant="body1" gutterBottom>
       We try to insert a value to a particular array index position, as the array provides random access it can be done easily using the assignment operator.
       </Typography>
-      {ArrayInsert()}
+      <form onSubmit={(event=>setArrayInsert(ArrayInsert(event,arrayInsert,index,value)))}>
+      <TextField size="small" id="insert-Index" label="Index" name="index" variant="outlined" onChange={(event=>setIndex(+event.target.value))}/>
+      <TextField size="small" id="Insert-Value" label="Value" name="value" variant="outlined" onChange={(event=>setValue(event.target.value))}/>
+      <Button size="medium" variant="outlined" type="submit" id="insert-array-submit">Insert</Button>
+      </form>
+      <Stack  spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
+            {arrayInsert.map(element=><Chip label={element} variant="outlined" />)}
+         </Stack>
       <div>
         {loadedData.complexityAnalysis}
       </div>
       <Typography variant="h6" display="block" gutterBottom>
-       Search in Array
+       Search in array
       </Typography>
       <Typography variant="body1" gutterBottom>
-      Searching is one of the most common operations performed in an array. Array searching can be defined as the operation of finding a particular element or a group of elements in the array.
+      Linear Search is defined as a sequential search algorithm that starts at one end and goes through each element of a list until the desired element is found, otherwise the search continues till the end of the data set.
       </Typography>
-      {ArrayInsert()}
+      
+
+
+      <form>
+      {/* <TextField size="small" id="Search-Value" label="Search Value" name="search-value" variant="outlined" onChange={(event=>setArraySearch(arraySearch.filter((element)=>{return element.includes(event.target.value)})))}/> */}
+      <TextField size="small" id="Search-Value" label="Search Value" name="search-value" variant="outlined" onChange={(event=>setArraySearch(ArraySearch(arraySearchOriginalValue,event.target.value)))}/>
+      </form>
+              <Stack  spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
+            {arraySearch.map(element=><Chip label={element} variant="outlined" />)}
+            </Stack>
       <div>
         {loadedData.complexityAnalysis}
       </div>
