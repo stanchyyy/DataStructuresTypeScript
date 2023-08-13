@@ -7,7 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText/ListItemText";
+import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -36,11 +36,11 @@ function ListDataStructures(arg_dataStructuresMap :  Map<string,string>){
   
   for (const [key, value] of arg_dataStructuresMap) {
     listDataStructures.push(
-      <ListItem  disablePadding>
+      <ListItem  disablePadding key={"nav-"+key}>
             <ListItemButton>
               <ListItemIcon>
                 <InboxIcon />
-                <Link   to={value} >
+                <Link rel="noreferrer"   to={value} >
                 <ListItemText primary={key} />
                 </Link>
               </ListItemIcon>

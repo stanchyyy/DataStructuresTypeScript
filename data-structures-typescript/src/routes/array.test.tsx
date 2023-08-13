@@ -1,35 +1,48 @@
-import React from "react";
-import Array,{ArraySearch} from "./array";
-import { render, screen } from '@testing-library/react';
-import "@testing-library/jest-dom/extend-expect";
+import Array, {ArraySearch} from "./array";
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
+import {  RouteObject, RouterProvider, createMemoryRouter } from "react-router-dom";
 import { ArrayLoader } from "../Loaders/array-loader";
 import Root from "./root";
-import { BrowserRouter } from "react-router-dom";
+import App from "../App";
+
 
  //ARRANGE
 
 let index = "10";
 let value = "Watermelon";
 
-test("array insert",()=>{
-  render(<Index />, {wrapper: BrowserRouter})
-    const arrayNav = screen.getByTestId("Array");
-    const insertIndexElement = screen.getByLabelText("Index");
-    const insertValueElement = screen.getByLabelText("Value");
-    const insertButton = screen.getByTestId("insert-array-submit");
-    
- // ACT
-    userEvent.click(arrayNav);
-    userEvent.type(insertIndexElement,index);
-    userEvent.type(insertValueElement,value);
-    userEvent.click(insertButton);
+  test("array insert",async ()=> {
+
+    const routes = [
+      {
+        path: "/",
+        element: <Array />,
+        loader : ArrayLoader
+      },
+    ];
+
+    const router = createMemoryRouter(routes);
 
 
-//  ASSERT
+     render(<RouterProvider router={router} />);
+     const insertIndexElement =  await screen.findByLabelText("Index");
+     const insertValueElement = await screen.findByLabelText("Value");
+     const insertButton = await screen.findByRole("button",{name:"Insert"});
 
-    expect(screen.getByText(value)).toBeInTheDocument();
-})
+     // eslint-disable-next-line testing-library/no-unnecessary-act
+     act(() => {
+      userEvent.type(insertIndexElement,index);
+      userEvent.type(insertValueElement,value);
+      userEvent.click(insertButton);
+     })
+
+
+
+      //  ASSERT
+     expect( await screen.findByText(value)).toBeInTheDocument();
+  });
 
  //ARRANGE
 
@@ -106,4 +119,14 @@ const arraySearchOriginalValue = [
 test("array search",()=>{
   let searchResult = ArraySearch(arraySearchOriginalValue,searchvalue);
   expect(searchResult[0]).toBe("Audi");
+})
+
+test("array search no search value",()=>{
+  let searchResult = ArraySearch(arraySearchOriginalValue,"");
+  expect(searchResult.length).toBe(arraySearchOriginalValue.length);
+})
+
+test("array search no result value",()=>{
+  let searchResult = ArraySearch(arraySearchOriginalValue,"Trabanth");
+  expect(searchResult[0]).toBe("No Results");
 })
