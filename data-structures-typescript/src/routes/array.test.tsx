@@ -1,11 +1,9 @@
 import Array, {ArraySearch} from "./array";
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen} from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
-import {  RouteObject, RouterProvider, createMemoryRouter } from "react-router-dom";
+import {  RouterProvider, createMemoryRouter } from "react-router-dom";
 import { ArrayLoader } from "../Loaders/array-loader";
-import Root from "./root";
-import App from "../App";
 
 
  //ARRANGE
