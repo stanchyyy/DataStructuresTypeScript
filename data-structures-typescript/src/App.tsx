@@ -17,6 +17,7 @@ import Queue from './routes/queue';
 import Stack from './routes/stack';
 import { ArrayLoader } from './Loaders/array-loader';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 let childrenRoutes : RouteObject []=[
@@ -72,11 +73,20 @@ const router = createBrowserRouter([
   },
 ]);
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
+
 function App() {
   return (
+    <ThemeProvider theme={darkTheme}>
     <div className="App">
       <RouterProvider router={router} />
     </div>
+    </ThemeProvider>
   );
 }
 
