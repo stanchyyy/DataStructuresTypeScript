@@ -5,7 +5,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import ErrorPage from './routes/error-page';
 import Array from './routes/array';
-import Root from "./routes/root"
+import Root  from "./routes/root"
 import LinkedList from './routes/linked-list';
 import BinarySearchTree from './routes/binary-search-tree';
 import BinaryTree from './routes/binary-tree';
@@ -18,6 +18,10 @@ import Stack from './routes/stack';
 import { ArrayLoader } from './Loaders/array-loader';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+// When using TypeScript 4.x and above
+import type {} from '@mui/lab/themeAugmentation';
+// When using TypeScript 3.x and below
+import '@mui/lab/themeAugmentation';
 
 
 let childrenRoutes : RouteObject []=[
