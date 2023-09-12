@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
-import { Button, Stack } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { IContent } from "../Models/Content";
@@ -10,7 +10,14 @@ import { IContent } from "../Models/Content";
 export function ArrayInsert(event: FormEvent<HTMLFormElement>, array: string[], index: number, value: string): string[] {
   event.preventDefault();
   let result: string[] = [...array];
-  result[index] = value;
+  if(index<result.length){
+    result.splice(index,0,value);
+  }
+  else {
+    for(let i = result.length;i<index;i++){
+      result.splice(i,0,"-");
+    }
+     result[index] = value;}
   return (
     result
   )
@@ -45,7 +52,7 @@ export function ArraySearch(array: string[], value: string): string[] {
 }
 
 export default function Array() {
-  const [arrayInsert, setArrayInsert] = useState(["Apple", "Pear", "Peach", "Mango", "Banana"]);
+  const [arrayInsert, setArrayInsert] = useState(["Apple", "Pear", "Peach", "Mango", "Banana", "Pineapple","Tomato","Lemon","Orange"]);
   const [index, setIndex] = useState<number>(-1);
   const [value, setValue] = useState("");
   const loadedData = useLoaderData() as IContent;
@@ -120,61 +127,77 @@ export default function Array() {
 
 
   return (
-    <div id="contact">
-      <Typography variant="h3" gutterBottom>
+    <>
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
         {loadedData.title}
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        {loadedData.description}
-      </Typography>
-      <Typography variant="h6" display="block" gutterBottom>
+      <Grid container sx={{ marginBottom: "1.5rem" }}>
+        <Grid >
+          <Typography variant="subtitle1" gutterBottom color={"#5C5470"} sx={{ display: "flex", textAlign: "left", alignSelf: "center", flexFlow: "wrap" }}>
+            {loadedData.description}
+          </Typography>
+        </Grid>
+
+      </Grid>
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
         Insertion in array
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        We try to insert a value to a particular array index position, as the array provides random access it can be done easily using the assignment operator.
-      </Typography>
+      <Grid container sx={{ marginBottom: "1.5rem" }}>
+        <Grid >
+          <Typography variant="subtitle1" gutterBottom color={"#5C5470"} sx={{ display: "flex", textAlign: "left", alignSelf: "center", flexFlow: "wrap" }}>
+            We try to insert a value to a particular array index position, as the array provides random access it can be done easily using the assignment operator.
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid container   sx={{ margin: "auto", width: "40%",border:"1px, solid, black" }}>
+      <fieldset >
+      <legend >Insert</legend>
       <form onSubmit={(event => setArrayInsert(ArrayInsert(event, arrayInsert, index, value)))}>
-        <TextField size="small" id="insert-Index" label="Index" name="index" variant="outlined" onChange={(event => setIndex(+event.target.value))} />
-        <TextField size="small" id="Insert-Value" label="Value" name="value" variant="outlined" onChange={(event => setValue(event.target.value))} />
-        <Button size="medium" variant="outlined" type="submit" id="insert-array-submit">Insert</Button>
+        <Grid sx={{padding:"0.5rem"}}>
+        <TextField size="small" required id="insert-Index" label="Index" name="index" variant="outlined" color="secondary"    onChange={(event => setIndex(+event.target.value))} />
+        </Grid>
+        <Grid sx={{padding:"0.5rem"}}>
+        <TextField size="small" color="secondary" required id="Insert-Value" label="Value" name="value" variant="outlined"  onChange={(event => setValue(event.target.value))} />
+        </Grid>
+        <Grid sx={{padding:"0.5rem"}}>
+        <Button  size="medium" variant="contained" type="submit" id="insert-array-submit" color="secondary">Insert</Button>
+        </Grid>
       </form>
-      <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
-        {arrayInsert.map(element => <Chip label={element} variant="outlined" />)}
+      </fieldset>
+      </Grid>
+      <Grid sx={{padding:"0.5rem"}} >
+      <Stack spacing={{ xs: 1, sm: 2 }} sx={{ margin: "1rem" }} direction="row" useFlexGap flexWrap="wrap" alignContent={"center"}>
+        {arrayInsert.map(element => <Button  variant="outlined" color="secondary" >{element}</Button>)}
       </Stack>
-      <div>
-        {loadedData.complexityAnalysis}
-      </div>
-      <Typography variant="h6" display="block" gutterBottom>
+      </Grid>
+
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
         Search in array
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        Linear Search is defined as a sequential search algorithm that starts at one end and goes through each element of a list until the desired element is found, otherwise the search continues till the end of the data set.
-      </Typography>
+      <Grid container sx={{ marginBottom: "1.5rem" }}>
+        <Grid >
+          <Typography variant="subtitle1" gutterBottom color={"#5C5470"} sx={{ display: "flex", textAlign: "left", alignSelf: "center", flexFlow: "wrap" }}>
+            Linear Search is defined as a sequential search algorithm that starts at one end and goes through each element of a list until the desired element is found, otherwise the search continues till the end of the data set.
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid container  sx={{ margin: "auto", width: "40%",border:"1px, solid, black" }}>
+      <fieldset >
+      <legend >Search</legend>
       <form>
-        <TextField size="small" id="Search-Value" label="Search Value" name="search-value" variant="outlined" onChange={(event => setArraySearch(ArraySearch(arraySearchOriginalValue, event.target.value)))} />
+      <Grid sx={{padding:"0.5rem"}}>
+        <TextField required size="small" color="secondary" id="Search-Value" label="Search Value" name="search-value" variant="outlined" onChange={(event => setArraySearch(ArraySearch(arraySearchOriginalValue, event.target.value)))} />
+      </Grid>
       </form>
-      <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
-        {arraySearch.map(element => <Chip label={element} variant="outlined" />)}
+      </fieldset >
+      </Grid>
+      <Grid sx={{padding:"0.5rem"}} >
+      <Stack spacing={{ xs: 1, sm: 2 }} direction="row" sx={{ margin: "1rem" }} useFlexGap flexWrap="wrap" alignContent={"center"}>
+        {arraySearch.map(element => <Button  variant="outlined" color="secondary" >{element}</Button>)}
       </Stack>
-      <div>
-        {loadedData.complexityAnalysis}
-      </div>
-      <Typography variant="h6" display="block" gutterBottom>
-        Multidimensional array
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-      A multi-dimensional array can be termed as an array of arrays that stores homogeneous data in tabular form. Data in multidimensional arrays is generally stored in row-major order in the memory.
-      </Typography>
-      <form>
-        <TextField size="small" id="Search-Value" label="Search Value" name="search-value" variant="outlined" onChange={(event => setArraySearch(ArraySearch(arraySearchOriginalValue, event.target.value)))} />
-      </form>
-      <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
-        {arraySearch.map(element => <Chip label={element} variant="outlined" />)}
-      </Stack>
-      <div>
-        {loadedData.complexityAnalysis}
-      </div>
-    </div>
+      </Grid>
+
+    </>
   )
 
 }

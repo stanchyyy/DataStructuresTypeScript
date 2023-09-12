@@ -1,0 +1,98 @@
+[
+{	"category":"home",
+	"label":"Home",
+	"link":"/",
+	"disabled":false,
+	"order" : 1
+},
+{	"category":"data structures",
+	"label":"Data Structures",
+	"link":"",
+	"disabled":true,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Array",
+	"link":"/array",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Linked List",
+	"link":"/linkedList",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Stack",
+	"link":"/stack",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Queue",
+	"link":"/queue",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Binary Tree",
+	"link":"/binaryTree",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Binary Search Tree",
+	"link":"/binarySearchTree",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Heap",
+	"link":"/heap",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Hashing",
+	"link":"/hashing",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Graph",
+	"link":"/graph",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"data structures",
+	"label":"Matrix",
+	"link":"/matrix",
+	"disabled":false,
+	"order" : 2
+},
+{	"category":"forms",
+	"label":"Forms",
+	"link":"",
+	"disabled":true,
+	"order" : 3
+},
+{	"category":"forms",
+	"label":"Sign in",
+	"link":"/signIn",
+	"disabled":false,
+	"order" : 3
+},
+{	"category":"forms",
+	"label":"Sign up",
+	"link":"/signup",
+	"disabled":false,
+	"order" : 3
+},
+{	"category":"forms",
+	"label":"CRUD",
+	"link":"/crud",
+	"disabled":false,
+	"order" : 3
+}
+]
