@@ -75,7 +75,7 @@ export default function Root() {
   const HomeTabPanel = ()=>{
     return(
       <>
-      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "center", borderBottom: "0.1rem solid" }} >
         MERN stack
       </Typography>
       <Grid container sx={{ marginBottom: "1.5rem" }}>
@@ -102,7 +102,7 @@ export default function Root() {
           <img src={mernImage} alt="MERN Stack" width={"70%"} />
         </Grid>
       </Grid>
-      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "center", borderBottom: "0.1rem solid" }} >
         Type Script
       </Typography>
       <Box display={"flex"} sx={{ marginBottom: "1.5rem" }} >
@@ -154,7 +154,7 @@ export default function Root() {
           </Card>
         </Grid>
       </Box>
-      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "center", borderBottom: "0.1rem solid" }} >
         CI/CD
       </Typography>
       <Grid container sx={{ marginBottom: "1.5rem" }}>

@@ -1,6 +1,5 @@
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Chip from "@mui/material/Chip";
 import { Button, Grid, Stack } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { useLoaderData } from "react-router-dom";
@@ -128,7 +127,7 @@ export default function Array() {
 
   return (
     <>
-      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{  borderBottom: "0.1rem solid" }} >
         {loadedData.title}
       </Typography>
       <Grid container sx={{ marginBottom: "1.5rem" }}>
@@ -139,7 +138,7 @@ export default function Array() {
         </Grid>
 
       </Grid>
-      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
+      <Typography variant="h4" gutterBottom color="secondary.dark" sx={{  borderBottom: "0.1rem solid" }} >
         Insertion in array
       </Typography>
       <Grid container sx={{ marginBottom: "1.5rem" }}>
@@ -149,7 +148,7 @@ export default function Array() {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container   sx={{ margin: "auto", width: "40%",border:"1px, solid, black" }}>
+      <Grid container   sx={{display: "flex:",  justifyContent: "center",  alignItems: "center", border:"1px, solid, black" }}>
       <fieldset >
       <legend >Insert</legend>
       <form onSubmit={(event => setArrayInsert(ArrayInsert(event, arrayInsert, index, value)))}>
@@ -171,7 +170,7 @@ export default function Array() {
       </Stack>
       </Grid>
 
-      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{ textAlign: "left", borderBottom: "0.1rem solid" }} >
+      <Typography variant="h4" gutterBottom color="secondary.dark" sx={{  borderBottom: "0.1rem solid" }} >
         Search in array
       </Typography>
       <Grid container sx={{ marginBottom: "1.5rem" }}>
@@ -181,7 +180,7 @@ export default function Array() {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container  sx={{ margin: "auto", width: "40%",border:"1px, solid, black" }}>
+      <Grid container  sx={{ display: "flex:",  justifyContent: "center",  alignItems: "center",border:"1px, solid, black" }}>
       <fieldset >
       <legend >Search</legend>
       <form>

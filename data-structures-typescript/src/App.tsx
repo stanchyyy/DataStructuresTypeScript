@@ -22,6 +22,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import type {} from '@mui/lab/themeAugmentation';
 // When using TypeScript 3.x and below
 import '@mui/lab/themeAugmentation';
+import { LinkedListLoader } from './Loaders/linked-list-loader';
 
 
 let childrenRoutes : RouteObject []=[
@@ -33,6 +34,7 @@ let childrenRoutes : RouteObject []=[
   {
     path: "linkedList",
     element : <LinkedList/>,
+    loader: LinkedListLoader
   },
   {
     path: "binarytree",
