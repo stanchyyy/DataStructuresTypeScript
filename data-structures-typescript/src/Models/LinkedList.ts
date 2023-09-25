@@ -1,14 +1,16 @@
+import { MusicTrack } from "./MusicTrack";
+
 export class ListNode implements IListNode{
-    data:string;
+    data:MusicTrack;
     next!: ListNode;
     previous!:ListNode;
-    constructor(data : string) {
+    constructor(data : MusicTrack) {
         this.data = data;
     }
 }
 
 export interface IListNode{
-    data:string;
+    data:MusicTrack;
     next:ListNode;
     previous:ListNode;
 }
@@ -17,7 +19,7 @@ export class LinkedLst implements IlinkedList{
     head!:ListNode;
 
 
-    Add(data:string){
+    Add(data:MusicTrack){
         let node = new ListNode(data);
         let current:ListNode;
         if(this.head===undefined){
@@ -38,5 +40,5 @@ export class LinkedLst implements IlinkedList{
 
 export interface IlinkedList{
     head : ListNode;
-    Add(data:string):void
+    Add(data:MusicTrack):void
 }

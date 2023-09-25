@@ -1,6 +1,12 @@
 {
-    "posts": [
-      { "id": 1, "title": "json-server", "author": "typicode" }
+    "tracks": [
+      { "id": 1, "title": "Bad Liar", "author": "Imagine Dragons", "lenght":"4:43","src":"https://www.youtube.com/watch?v=I-QfPUz1es8" },
+      { "id": 2, "title": "Let Me Down Slowly [Official Music Video]", "author": "Alec Benjamin", "lenght":"2:53","src":"https://www.youtube.com/watch?v=50VNCymT-Cs" },
+      { "id": 3, "title": "Another Love (Official Video)", "author": "Tom Odell", "lenght":"4:07" ,"src":"https://www.youtube.com/watch?v=MwpMEbgC7DA"},
+      { "id": 4, "title": "117 [Official Video]", "author": "Papi Hans", "lenght":"3:50","src":"https://www.youtube.com/watch?v=PNOXqW5MCbg" },
+      { "id": 5, "title": "Into Your Arms (feat. Ava Max) (Official Music Video)", "author": "Witt Lowrys", "lenght":"3:19","src":"https://www.youtube.com/watch?v=h3YXec5gJi0" },
+      { "id": 6, "title": "Photograph (Official Music Video)", "author": "Ed Sheeran", "lenght":"4:34","src":"https://www.youtube.com/watch?v=nSDgHBxUbVQ" },
+      { "id": 7, "title": "Someone You Loved", "author": "Lewis Capaldi", "lenght":"3:06","src":"https://www.youtube.com/watch?v=zABLecsR5UE" }
     ],
     "comments": [
       { "id": 1, "body": "some comment", "postId": 1 }
