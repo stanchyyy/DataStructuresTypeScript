@@ -14,7 +14,6 @@ import Hashing from './routes/hashing';
 import Heap from './routes/heap';
 import Matrix from './routes/matrix';
 import Queue from './routes/queue';
-import Stack from './routes/stack';
 import { ArrayLoader } from './Loaders/array-loader';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -23,6 +22,8 @@ import type {} from '@mui/lab/themeAugmentation';
 // When using TypeScript 3.x and below
 import '@mui/lab/themeAugmentation';
 import { LinkedListLoader } from './Loaders/linked-list-loader';
+import { StackLoader } from './Loaders/stack-loader';
+import StackStructure from './routes/stack';
 
 
 let childrenRoutes : RouteObject []=[
@@ -66,7 +67,8 @@ let childrenRoutes : RouteObject []=[
   },
   {
     path: "stack",
-    element : <Stack />,
+    element : <StackStructure />,
+    loader: StackLoader
   },
 
 ]

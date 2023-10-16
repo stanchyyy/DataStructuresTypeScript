@@ -1,91 +1,119 @@
-import { Form } from "react-router-dom";
+import { Avatar, Button, Grid, Stack, Typography } from "@mui/material";
+import { useLoaderData } from "react-router-dom";
+import { IContent } from "../Models/Content";
+import { useEffect, useState } from "react";
+import { Letter,Color, StackModel } from "../Models/Stack";
 
-export default function Stack() {
-  const contact = {
-    first: "Your",
-    last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
 
-  return (
-    <div id="contact">
-      <div>
-        <img
-          alt=""
-          key={contact.avatar}
-          src={contact.avatar}
-        />
-      </div>
+function scramble(word:string):string[]{
+  let letterArray = word.split("");
 
-      <div>
-        <h1>
-          {contact.first || contact.last ? (
-            <>
-              {contact.first} {contact.last}
-            </>
-          ) : (
-            <i>No Name</i>
-          )}{" "}
-          <Favorite contact={contact} />
-        </h1>
+  let j,k;
 
-        {contact.twitter && (
-          <p>
-            <a
-              target="_blank"
-              href={`https://twitter.com/${contact.twitter}`}
-            >
-              {contact.twitter}
-            </a>
-          </p>
-        )}
-
-        {contact.notes && <p>{contact.notes}</p>}
-
-        <div>
-          <Form action="edit">
-            <button type="submit">Edit</button>
-          </Form>
-          <Form
-            method="post"
-            action="destroy"
-            onSubmit={(event) => {
-              if (
-                !window.confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <button type="submit">Delete</button>
-          </Form>
-        </div>
-      </div>
-    </div>
-  );
+  for (let i = 0; i < letterArray.length; i++) {
+    j = Math.floor(Math.random() * i)
+    k = letterArray[i]
+    letterArray[i] = letterArray[j]
+    letterArray[j] = k
+  }
+  let result = letterArray;  
+  return result;
+  
 }
 
-function Favorite({ contact }:any) {
-  // yes, this is a `let` for later
-  let favorite = contact.favorite;
+function AvatarLetters (letters:string[]) : Letter[]{
+  let avatarArray : Letter[] = [];
+
+  for(let i =0;i<letters.length;i++){
+    const newLetter = new Letter(letters[i],Color[i],i);
+    avatarArray = [...avatarArray,newLetter];
+  }
+  return avatarArray;
+}
+
+function AvatarLettersComponent(avatarLetters:Letter[]){
+  const [avatarStack,setAvatarStack] =useState<StackModel>( new StackModel(avatarLetters.length));
+  const [scrambledLetters,setScrambledLetters] = useState<Letter[]>(avatarLetters);
+
+  
+  
+
+   const handlePush = (pushedLetter : Letter)=>{
+        setAvatarStack(avatarStack.push(pushedLetter));
+        setScrambledLetters(scrambledLetters.filter(a=>a.id!==pushedLetter.id))
+   }
+
+   const handlePop = ()=>{
+    console.log("poppin")
+    const lastElement = avatarStack.last();
+    if( typeof lastElement === "object"){
+    setAvatarStack(avatarStack.pop());
+    setScrambledLetters([...scrambledLetters,lastElement]);     
+  }
+}
+
+  return(
+    <Grid container   sx={{display: "flex:",  justifyContent: "center",  alignItems: "center"}}>
+    <Grid xs={6} sx={{borderRight:"1px solid black",minHeight:"19rem" }}>
+    <Stack direction="column" spacing={2} alignItems={"center"}>
+       {scrambledLetters.map((avatar)=>( 
+       <button onClick={()=>(handlePush(avatar))}>
+                   <Avatar sx={{ bgcolor: avatar.color }}>{avatar.letter}
+                   </Avatar>
+                 </button>)
+       )}
+       </Stack>
+    </Grid>
+    <Grid xs={6}  sx={{minHeight:"19rem"}}>
+    <Stack direction="column" spacing={2} alignItems={"center"}>
+       {avatarStack.element.map((avatar)=>( 
+       <button >
+                   <Avatar sx={{ bgcolor: avatar.color }}>{avatar.letter}
+                   </Avatar>
+                 </button>)
+       )}
+       </Stack>
+
+    </Grid>
+    <Button sx={{marginTop:"1rem"}}  onClick = {()=>(handlePop())} variant="contained">Pop</Button>
+  </Grid>
+      
+  )
+}
+
+
+
+export default function StackStructure() {
+  const loadedData = useLoaderData() as IContent;
+  const letters: string[] = scramble("SMART");
+  const avatarLetters : Letter[] = AvatarLetters(letters);
+  const [riddleStack,setRiddleStack] = useState<StackModel>();
+  
+
   return (
-    <Form method="post">
-      <button
-        name="favorite"
-        value={favorite ? "false" : "true"}
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
-      >
-        {favorite ? "★" : "☆"}
-      </button>
-    </Form>
-  );
+    <>
+      <Typography variant="h3" gutterBottom color="secondary.dark" sx={{  borderBottom: "0.1rem solid" }} >
+        {loadedData.title}
+      </Typography>
+      <Grid container sx={{ marginBottom: "1.5rem" }}>
+        <Grid >
+          <Typography variant="subtitle1" gutterBottom color={"#5C5470"} sx={{ display: "flex", textAlign: "left", alignSelf: "center", flexFlow: "wrap" }}>
+            {loadedData.description}
+          </Typography>
+        </Grid>
+
+      </Grid>
+      <Typography variant="h4" gutterBottom color="secondary.dark" sx={{  borderBottom: "0.1rem solid" }} >
+        Scramble game
+      </Typography>
+      <Grid container sx={{ marginBottom: "1.5rem"}}>
+        <Grid >
+          <Typography variant="subtitle1" gutterBottom color={"#5C5470"} sx={{ display: "flex", textAlign: "left", alignSelf: "center", flexFlow: "wrap" }}>
+            Stack the words to get important objective setting principle.
+          </Typography>
+        </Grid>
+      </Grid>
+      {AvatarLettersComponent(avatarLetters)}
+    </>
+  )
 }
