@@ -1,7 +1,7 @@
 import { Avatar, Button, Grid, Stack, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
 import { IContent } from "../Models/Content";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Letter,Color, StackModel } from "../Models/Stack";
 
 
@@ -75,7 +75,7 @@ function AvatarLettersComponent(avatarLetters:Letter[]){
        </Stack>
 
     </Grid>
-    <Button sx={{marginTop:"1rem"}}  onClick = {()=>(handlePop())} variant="contained">Pop</Button>
+    <Button sx={{marginTop:"1rem"}} size="large" color="secondary"  onClick = {()=>(handlePop())} variant="contained">Pop</Button>
   </Grid>
       
   )

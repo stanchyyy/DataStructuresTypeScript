@@ -190,7 +190,7 @@ export default function Array() {
       </form>
       </fieldset >
       </Grid>
-      <Grid sx={{padding:"0.5rem"}} >
+      <Grid sx={{padding:"0.5rem", minHeight:"32rem"}} >
       <Stack spacing={{ xs: 1, sm: 2 }} direction="row" sx={{ margin: "1rem" }} useFlexGap flexWrap="wrap" alignContent={"center"}>
         {arraySearch.map(element => <Button  variant="outlined" color="secondary" >{element}</Button>)}
       </Stack>
